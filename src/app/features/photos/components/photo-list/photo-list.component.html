@@ -1,0 +1,31 @@
+<!-- <div class="photo-grid">
+  <div *ngFor="let photo of photos" class="photo-item">
+    <img
+      [src]="photo.url"
+      [alt]="photo.title"
+      (click)="addToFavorites(photo)"
+    />
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>-->
+
+<div class="photo-grid">
+  @for (photo of photos; track photo.id) {
+  <div class="photo-item">
+    <img
+      [src]="photo.url"
+      [alt]="photo.title"
+      (click)="addToFavorites(photo)"
+    />
+  </div>
+  }
+</div>
+
+@if (isLoading) {
+<div class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>
+}

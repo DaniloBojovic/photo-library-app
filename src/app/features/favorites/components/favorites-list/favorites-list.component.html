@@ -1,0 +1,29 @@
+<!-- <div class="photo-grid">
+  <div
+    *ngFor="let photo of favorites"
+    class="photo-item"
+    (click)="viewPhotoDetail(photo.id)"
+  >
+    <img [src]="photo.url" [alt]="photo.title" />
+    <button (click)="removeFromFavorites(photo.id); $event.stopPropagation()">
+      Remove from Favorites
+    </button>
+  </div>
+</div> -->
+
+<div class="photo-grid">
+  @for (photo of favorites; track photo.id) {
+  <div class="photo-item" (click)="viewPhotoDetail(photo.id)">
+    <img [src]="photo.url" [alt]="photo.title" />
+    <button (click)="removeFromFavorites(photo.id); $event.stopPropagation()">
+      Remove from Favorites
+    </button>
+  </div>
+  }
+</div>
+
+@if (!favorites.length) {
+<div class="empty-message">
+  <p>No favorites added yet.</p>
+</div>
+}

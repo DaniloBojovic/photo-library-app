@@ -1,0 +1,13 @@
+<!-- <div class="photo-detail" *ngIf="photo">
+  <img [src]="photo.url" [alt]="photo.title" />
+  <h2>{{ photo.title }}</h2>
+  <button (click)="removeFromFavorites()">Remove from Favorites</button>
+</div> -->
+
+@if (photo) {
+<div class="photo-detail">
+  <img [src]="photo.url" [alt]="photo.title" />
+  <h2>{{ photo.title }}</h2>
+  <button (click)="removeFromFavorites()">Remove from Favorites</button>
+</div>
+}
