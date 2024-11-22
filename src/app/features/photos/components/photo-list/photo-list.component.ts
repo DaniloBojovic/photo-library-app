@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { delay, catchError, of } from 'rxjs';
+import { delay, catchError, of, Subject, debounceTime } from 'rxjs';
 import { Photo } from '../../../../core/models/photo.model';
 import { PhotoService } from '../../services/photo.service';
 import { FavoritesService } from '../../../favorites/services/favorites.service';
@@ -19,6 +19,7 @@ export class PhotoListComponent {
   hasError = false;
   currentIndex = 0;
   loadBatchSize = 20;
+  private scrollSubject = new Subject<void>();
 
   constructor(
     private photoService: PhotoService,
@@ -26,11 +27,29 @@ export class PhotoListComponent {
   ) {}
 
   ngOnInit(): void {
+    this.scrollSubject
+      .pipe(debounceTime(200))
+      .subscribe(() => this.handleScroll());
+
     this.loadPhotos();
   }
 
+  // @HostListener('window:scroll', [])
+  // onScroll(): void {
+  //   if (
+  //     window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+  //     !this.isLoading
+  //   ) {
+  //     this.loadPhotos();
+  //   }
+  // }
+
   @HostListener('window:scroll', [])
   onScroll(): void {
+    this.scrollSubject.next();
+  }
+
+  handleScroll(): void {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
       !this.isLoading
